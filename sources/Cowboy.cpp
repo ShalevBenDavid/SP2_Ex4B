@@ -23,6 +23,10 @@ void Cowboy :: shoot (Character* enemy) {
     if (!isAlive()) {
         throw runtime_error("Dead cowboy can't shoot!\n");
     }
+    // Check if enemy is already dead.
+    if (!enemy -> isAlive()) {
+        throw runtime_error("You can't slash a dead character!\n");
+    }
     // Check if this cowboy is trying to shoot himself.
     if (this == enemy) {
         throw runtime_error("Cowboy can't shoot himself!\n");

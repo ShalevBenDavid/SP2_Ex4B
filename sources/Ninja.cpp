@@ -16,6 +16,10 @@ void Ninja :: slash (Character* enemy) const {
     if (!isAlive()) {
         throw runtime_error("Dead ninja can't slash!\n");
     }
+    // Check if enemy is already dead.
+    if (!enemy -> isAlive()) {
+        throw runtime_error("You can't slash a dead character!\n");
+    }
     // Check if this ninja is trying to slash himself.
     if (this == enemy) {
         throw runtime_error("Ninja can't slash himself!\n");
