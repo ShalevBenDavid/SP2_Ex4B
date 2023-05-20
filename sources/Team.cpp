@@ -135,6 +135,7 @@ int Team :: stillAlive () const {
  * prints all characters in the team
  */
 void Team :: print() const {
+    cout << "<<<<<<<<<<<<<<<<<<<<<<<<<< Printing Team >>>>>>>>>>>>>>>>>>>>>>>>>>" << endl;
     // Iterate first over the cowboys.
     for (size_t i = 0; i < _warriors_count; i++) {
         auto &temp_warrior = *_warriors.at(i);

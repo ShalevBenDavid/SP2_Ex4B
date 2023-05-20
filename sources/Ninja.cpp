@@ -49,12 +49,12 @@ void Ninja :: move (Character* enemy) {
  */
 string Ninja :: print() const {
     string info;
-    info = "<<<<<<<<<<<<<<<<<<<<<<<<<< Character name: (N) [" + getName() + "] >>>>>>>>>>>>>>>>>>>>>>>>>>\n";
+    info = "[Character name: (N) " + getName() + " | ";
     // If the character is alive, print hit points.
     if (isAlive()) {
-        info += "[Hit Points: " + to_string(getHitPoints()) + "]\n";
+        info += "Hit Points: " + to_string(getHitPoints()) + " | ";
     }
-    info += "[Location: " + getLocation().toString() + "]\n";
+    info += "Location: " + getLocation().toString() + "]\n";
     return info;
 }
 

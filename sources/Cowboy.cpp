@@ -37,7 +37,7 @@ void Cowboy :: shoot (Character* enemy) {
         enemy -> hit(COWBOY_DAMAGE);
         // Decrease number of bullets by 1.
         _bullets -= 1;
-    }
+//    }
 }
 
 /**
@@ -56,12 +56,12 @@ void Cowboy :: reload () {
  */
 string Cowboy :: print () const {
     string info;
-    info = "<<<<<<<<<<<<<<<<<<<<<<<<<< Character name: (C) [" + getName() + "] >>>>>>>>>>>>>>>>>>>>>>>>>>\n";
+    info = "[Character name: (C) " + getName() + " | ";
     // If the character is alive, print hit points.
     if (isAlive()) {
-        info += "[Hit Points: " + to_string(getHitPoints()) + "]\n";
+        info += "Hit Points: " + to_string(getHitPoints()) + " | ";
     }
-    info += "[Location: " + getLocation().toString() + "]\n";
+    info += "Location: " + getLocation().toString() + "]\n";
     return info;
 }
 
