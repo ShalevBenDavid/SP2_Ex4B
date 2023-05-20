@@ -37,7 +37,7 @@ void Cowboy :: shoot (Character* enemy) {
         enemy -> hit(COWBOY_DAMAGE);
         // Decrease number of bullets by 1.
         _bullets -= 1;
-//    }
+    }
 }
 
 /**
