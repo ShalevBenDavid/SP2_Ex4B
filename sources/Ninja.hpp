@@ -3,6 +3,7 @@
 #ifndef SP2_EX4A_NINJA_H
 #define SP2_EX4A_NINJA_H
 #include "Character.hpp"
+#include "SmartTeam.hpp"
 
 const int NINJA_DAMAGE = 40;
 
@@ -23,10 +24,9 @@ namespace ariel {
 
         // Print method.
         std :: string print () const override;
-
-    protected:
         // Get methods.
         int getSpeed () const;
+
     };
 }
 

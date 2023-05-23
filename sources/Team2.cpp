@@ -24,8 +24,8 @@ void Team2 :: attack (Team* enemy_team) {
     if (!getLeader() -> isAlive()) {
         setLeader(getClosest(this, getLeader()));
     }
-    Cowboy* current_cowboy;
-    Ninja* current_ninja;
+    Cowboy* current_cowboy = nullptr;;
+    Ninja* current_ninja = nullptr;;
     Character* victim = getClosest(enemy_team, getLeader());
     // Attack enemy team.
     for (size_t i = 0; i < getWarriorsCount() && victim -> isAlive(); i++) {

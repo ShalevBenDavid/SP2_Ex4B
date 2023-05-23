@@ -70,8 +70,8 @@ void Team :: attack (Team* enemy_team) {
     if (!_leader -> isAlive()) {
         _leader = getClosest(this, _leader);
     }
-    Cowboy* current_cowboy;
-    Ninja* current_ninja;
+    Cowboy* current_cowboy = nullptr;
+    Ninja* current_ninja = nullptr;
     Character* victim = getClosest(enemy_team, _leader);
     // Iterate first over the cowboys and shoot/reload at enemy team.
     for (size_t i = 0; i < _warriors_count && victim -> isAlive(); i++) {
