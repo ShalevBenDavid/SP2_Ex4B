@@ -5,8 +5,8 @@ using namespace std;
 using namespace ariel;
 
 /**
- * Attacks enemy_team
- * @param enemy_team - the team we attack
+ * Attacks enemy_team with a smart strategy.
+ * @param enemy_team - The team we attack.
  */
 void SmartTeam :: attack (Team* enemy_team) {
     // Check if the enemy is null.
@@ -59,7 +59,7 @@ void SmartTeam :: attack (Team* enemy_team) {
             if (current_cowboy -> isAlive()) {
                 // If the cowboy has bullets.
                 if (current_cowboy -> hasboolets()) {
-                    // Choose a victim fot the cowboy.
+                    // Choose a victim for the cowboy.
                     victim = Locate_cowboy_target(enemy_team);
                     // If the enemy team is dead, break.
                     if (victim == nullptr) { break; }
@@ -107,7 +107,7 @@ Character* SmartTeam :: locate_ninja_target (Ninja* ninja, Team* enemy_team) {
         if (enemy_team -> getWarriors().at(i) -> isAlive()) {
             // Compute distance and hp.
             dist = ninja -> distance(enemy_team -> getWarriors().at(i));
-            hp = ninja -> getHitPoints();
+            hp = enemy_team -> getWarriors().at(i) -> getHitPoints();
             // Type A victim.
             if (dist <= 1) {
                 // Update type A victim and low hp if necessary.
@@ -128,9 +128,14 @@ Character* SmartTeam :: locate_ninja_target (Ninja* ninja, Team* enemy_team) {
             }
             // Type C victim.
             else {
-                // Update type C victim and low hp if necessary.
-                if ((low_hp_c > NINJA_DAMAGE && hp < low_hp_c) ||
-                    (low_hp_c <= NINJA_DAMAGE && hp <= NINJA_DAMAGE && hp > low_hp_c)) {
+                // Update type C victim and min distance if necessary.
+                if (dist < min_distance_c) {
+                    min_distance_c = dist;
+                    victim_c = enemy_team -> getWarriors().at(i);
+                }
+                // If we found a victim within the same distance with low hp.
+                else if ((dist == min_distance_c) && ((low_hp_c > NINJA_DAMAGE && hp < low_hp_c) ||
+                         (low_hp_c <= NINJA_DAMAGE && hp <= NINJA_DAMAGE && hp > low_hp_b))) {
                     low_hp_c = hp;
                     victim_c = enemy_team -> getWarriors().at(i);
                 }

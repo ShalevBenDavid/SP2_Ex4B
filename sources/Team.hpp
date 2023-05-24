@@ -19,7 +19,7 @@ namespace ariel {
 
     public:
         // Constructors.
-        Team (Character *);
+        Team (Character*);
 
         // Destructor.
         virtual ~Team () {
