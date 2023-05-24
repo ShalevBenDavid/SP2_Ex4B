@@ -1,6 +1,7 @@
 // Created by Shalev Ben David.
 #include "SmartTeam.hpp"
 #include <limits>
+using namespace std;
 using namespace ariel;
 
 /**
@@ -28,10 +29,10 @@ void SmartTeam :: attack (Team* enemy_team) {
     Ninja* current_ninja = nullptr;
     Character* victim = nullptr;
     // Iterate first over the ninjas since they have distance limit.
-    for (size_t i = 0; i < _warriors_count; i++) {
-        auto &temp_warrior = *_warriors.at(i);
+    for (size_t i = 0; i < getWarriorsCount(); i++) {
+        auto &temp_warrior = *getWarriors().at(i);
         if (typeid(temp_warrior) != typeid(Cowboy)) {
-            current_ninja = dynamic_cast <Ninja*> (_warriors.at(i));
+            current_ninja = dynamic_cast <Ninja*> (getWarriors().at(i));
             // Only if the ninja is alive, pick a target for him.
             if (current_ninja -> isAlive()) {
                 // Choose a victim for the ninja.
@@ -39,7 +40,7 @@ void SmartTeam :: attack (Team* enemy_team) {
                 // If the enemy team is dead, break.
                 if (victim == nullptr) { break; }
                 // If the ninja is close, slash the victim.
-                if (current_ninja -> distance(victim -> getLocation()) <= 1) {
+                if (current_ninja -> distance(victim) <= 1) {
                     current_ninja -> slash(victim);
                 }
                 // Else, move ninja towards victim.
@@ -50,10 +51,10 @@ void SmartTeam :: attack (Team* enemy_team) {
         }
     }
     // Iterate now over the cowboys.
-    for (size_t i = 0; i < _warriors_count; i++) {
-        auto &temp_warrior = *_warriors.at(i);
+    for (size_t i = 0; i < getWarriorsCount(); i++) {
+        auto &temp_warrior = *getWarriors().at(i);
         if (typeid(temp_warrior) == typeid(Cowboy)) {
-            current_cowboy = dynamic_cast <Cowboy*> (_warriors.at(i));
+            current_cowboy = dynamic_cast <Cowboy*> (getWarriors().at(i));
             // Only if the cowboy is alive, pick a target for him.
             if (current_cowboy -> isAlive()) {
                 // If the cowboy has bullets.
@@ -101,11 +102,11 @@ Character* SmartTeam :: locate_ninja_target (Ninja* ninja, Team* enemy_team) {
     // Current hp for a warrior in team.
     double hp = 0;
     // Iterate over the enemy team and pick a victim.
-    for (size_t i = 0; i < enemy_team -> _warriors_count; i++) {
+    for (size_t i = 0; i < enemy_team -> getWarriorsCount(); i++) {
         // Only if this enemy is alive, check him.
-        if (enemy_team -> _warriors.at(i) -> isAlive()) {
+        if (enemy_team -> getWarriors().at(i) -> isAlive()) {
             // Compute distance and hp.
-            dist = ninja -> distance(enemy_team -> _warriors.at(i));
+            dist = ninja -> distance(enemy_team -> getWarriors().at(i));
             hp = ninja -> getHitPoints();
             // Type A victim.
             if (dist <= 1) {
@@ -113,7 +114,7 @@ Character* SmartTeam :: locate_ninja_target (Ninja* ninja, Team* enemy_team) {
                 if ((low_hp_a > NINJA_DAMAGE && hp < low_hp_a) ||
                     (low_hp_a <= NINJA_DAMAGE && hp <= NINJA_DAMAGE && hp > low_hp_a)) {
                     low_hp_a = hp;
-                    victim_a = enemy_team -> _warriors.at(i);
+                    victim_a = enemy_team -> getWarriors().at(i);
                 }
             }
             // Type B victim.
@@ -122,7 +123,7 @@ Character* SmartTeam :: locate_ninja_target (Ninja* ninja, Team* enemy_team) {
                 if ((low_hp_b > NINJA_DAMAGE && hp < low_hp_b) ||
                     (low_hp_b <= NINJA_DAMAGE && hp <= NINJA_DAMAGE && hp > low_hp_b)) {
                     low_hp_b = hp;
-                    victim_b = enemy_team -> _warriors.at(i);
+                    victim_b = enemy_team -> getWarriors().at(i);
                 }
             }
             // Type C victim.
@@ -131,7 +132,7 @@ Character* SmartTeam :: locate_ninja_target (Ninja* ninja, Team* enemy_team) {
                 if ((low_hp_c > NINJA_DAMAGE && hp < low_hp_c) ||
                     (low_hp_c <= NINJA_DAMAGE && hp <= NINJA_DAMAGE && hp > low_hp_c)) {
                     low_hp_c = hp;
-                    victim_c = enemy_team -> _warriors.at(i);
+                    victim_c = enemy_team -> getWarriors().at(i);
                 }
             }
         }
@@ -158,14 +159,14 @@ Character* SmartTeam :: Locate_cowboy_target (Team* enemy_team) {
     // Current hp for each of the warriors in team.
     double hp = 0;
     // Iterate over the enemy team and pick a victim.
-    for (size_t i = 0; i < enemy_team -> _warriors_count; i++) {
+    for (size_t i = 0; i < enemy_team -> getWarriorsCount(); i++) {
         // Only if this enemy is alive, check him.
-        if (enemy_team -> _warriors.at(i) -> isAlive()) {
-            hp = enemy_team -> _warriors.at(i) -> getHitPoints();
+        if (enemy_team -> getWarriors().at(i) -> isAlive()) {
+            hp = enemy_team -> getWarriors().at(i) -> getHitPoints();
             // Update victim if needed.
             if (hp < min_hp) {
                 min_hp = hp;
-                victim = enemy_team -> _warriors.at(i);
+                victim = enemy_team -> getWarriors().at(i);
             }
         }
     }

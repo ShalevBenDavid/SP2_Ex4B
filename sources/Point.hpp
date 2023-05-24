@@ -31,11 +31,11 @@ namespace ariel {
         void setY (double new_y ) { _py = new_y; }
 
         // Operator == and !=
-        bool operator == (const Point& other) {
+        bool operator == (const Point& other) const {
             return (_px == other._px) && (_py == other._py);
         }
-        bool operator != (const Point& other) {
-            return !(this == other);
+        bool operator != (const Point& other) const {
+            return !(*this == other);
         }
     };
 }
